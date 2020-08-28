@@ -49,6 +49,9 @@ def filesselected():
     if textafter == "Text after file name":
         textafter = ""
         
+      for x in files:
+        os.renames(x, x+"temp")
+       
     for x in files:
         increment += 1
         stringit = str(increment)
@@ -57,19 +60,18 @@ def filesselected():
         extension = os.path.splitext(x)[1]
         if keep.get() == 0:
             try:
-                os.renames(x, filepath+"/"+textbefore+textafter+ stringit + extension)
+                os.renames(x+"temp", filepath+"/"+textbefore+textafter+ stringit + extension)
             except OSError:
-                os.renames(x, filepath+"/"+textbefore+textafter+ stringit +"-DUBLICATE"+ extension)
-
+                os.renames(x+"temp", filepath+"/"+textbefore+textafter+ stringit +"-DUBLICATE"+ extension)
                 print ('caught')
-         
+        
         else:
             try:
-                os.renames(x, filepath+"/"+textbefore+filenameonly+textafter+ stringit + extension)
+                os.renames(x+"temp", filepath+"/"+textbefore+filenameonly+textafter+ stringit + extension)
             except OSError:
-                os.renames(x, filepath+"/"+textbefore+filenameonly+textafter+ stringit +"-DUBLICATE"+ extension)
+                os.renames(x+"temp", filepath+"/"+textbefore+filenameonly+textafter+ stringit +"-DUBLICATE"+ extension)
                 print ('caught')
-            
+           
 window = tk.Tk()
 window.title("Bulk rename tool")    
 root = window 
